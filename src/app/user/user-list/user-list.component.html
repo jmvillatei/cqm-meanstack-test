@@ -1,1 +1,7 @@
-<p>user-list works!</p>
+<h1>user-list works!</h1>
+
+<div *ngFor="let user of users">
+    {{user._id}} - {{user.first_name}} - {{user.last_name}} - {{user.email}}
+
+    <button>Update</button><button>Delete</button>
+</div>
