@@ -10,6 +10,7 @@ import { User } from '../user';
 export class UserListComponent implements OnInit {
   @Input() users;
   @Output() destroyUserEvent = new EventEmitter();
+  @Output() updateUserEvent = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -21,6 +22,10 @@ export class UserListComponent implements OnInit {
       this.destroyUserEvent.emit(user);
     }
 
+  }
+
+  update(users){
+    this.updateUserEvent.emit(users);
   }
 
 }
