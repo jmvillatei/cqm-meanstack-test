@@ -9,4 +9,15 @@ router.get('/users', (req, res) => {
     });
 });
 
+router.post('/users', (req, res) => {
+    delete req.body._id;
+    User.create(req.body, (err,user) => {
+        if(err){
+            res.json(err);
+        } else{
+            res.json(user);
+        }
+    })
+});
+
 module.exports = router;

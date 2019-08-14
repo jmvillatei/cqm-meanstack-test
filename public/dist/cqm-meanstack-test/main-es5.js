@@ -499,7 +499,10 @@ var UserComponent = /** @class */ (function () {
             .then(function (users) { return _this.users = users; });
     };
     UserComponent.prototype.create = function (user) {
-        this.users.push(user);
+        var _this = this;
+        this._userServices.create(user)
+            .then(function (status) { return _this.getUsers(); })
+            .catch(function (err) { return console.log(err); });
     };
     UserComponent.prototype.destroy = function (user) {
         var i = this.users.indexOf(user);

@@ -486,7 +486,9 @@ let UserComponent = class UserComponent {
             .then(users => this.users = users);
     }
     create(user) {
-        this.users.push(user);
+        this._userServices.create(user)
+            .then(status => this.getUsers())
+            .catch(err => console.log(err));
     }
     destroy(user) {
         const i = this.users.indexOf(user);
