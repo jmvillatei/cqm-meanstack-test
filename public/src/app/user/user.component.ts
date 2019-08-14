@@ -31,13 +31,15 @@ export class UserComponent implements OnInit {
   }
 
   destroy(user: User){
-    const i = this.users.indexOf(user);
-    this.users.splice(i, 1);
+    this._userServices.destroy(user)
+      .then(status => this.getUsers())
+      .catch(err => console.log(err));
   }
 
-  update(users){
-    const i = this.users.indexOf(users.original);
-    this.users[i] = users.edited;
+  update(user){
+    this._userServices.update(user)
+      .then(status => this.getUsers())
+      .catch(err => console.log(err));
   }
 
 }

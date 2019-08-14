@@ -305,10 +305,7 @@ let UserEditComponent = class UserEditComponent {
     }
     update() {
         this.editUser.editable = false;
-        this.updateUserEvent.emit({
-            original: this.user,
-            edited: this.editUser
-        });
+        this.updateUserEvent.emit(this.editUser);
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -367,8 +364,8 @@ let UserListComponent = class UserListComponent {
             this.destroyUserEvent.emit(user);
         }
     }
-    update(users) {
-        this.updateUserEvent.emit(users);
+    update(user) {
+        this.updateUserEvent.emit(user);
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -491,12 +488,14 @@ let UserComponent = class UserComponent {
             .catch(err => console.log(err));
     }
     destroy(user) {
-        const i = this.users.indexOf(user);
-        this.users.splice(i, 1);
+        this._userServices.destroy(user)
+            .then(status => this.getUsers())
+            .catch(err => console.log(err));
     }
-    update(users) {
-        const i = this.users.indexOf(users.original);
-        this.users[i] = users.edited;
+    update(user) {
+        this._userServices.update(user)
+            .then(status => this.getUsers())
+            .catch(err => console.log(err));
     }
 };
 UserComponent.ctorParameters = () => [
@@ -542,7 +541,7 @@ let UserService = class UserService {
         return this._http.post('/users', user)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(data => data.json())).toPromise();
     }
-    detroy(user) {
+    destroy(user) {
         return this._http.delete('/users/' + user._id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(data => data.json())).toPromise();
     }

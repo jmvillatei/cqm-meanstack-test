@@ -11,10 +11,32 @@ router.get('/users', (req, res) => {
 
 router.post('/users', (req, res) => {
     delete req.body._id;
-    User.create(req.body, (err,user) => {
-        if(err){
+    User.create(req.body, (err, user) => {
+        if (err) {
             res.json(err);
-        } else{
+        } else {
+            res.json(user);
+        }
+    })
+});
+
+router.put('/users/:id', (req, res) => {
+    delete req.body.id;
+    User.update({ _id: req.params.id }, req.body, (err, user) => {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(user);
+        }
+
+    });
+});
+
+router.delete('/users/:id', (req, res) => {
+    User.deleteOne({_id: req.params.id}, (err,user) => {
+        if (err) {
+            res.json(err);
+        } else {
             res.json(user);
         }
     })

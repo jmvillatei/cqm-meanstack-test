@@ -314,10 +314,7 @@ var UserEditComponent = /** @class */ (function () {
     };
     UserEditComponent.prototype.update = function () {
         this.editUser.editable = false;
-        this.updateUserEvent.emit({
-            original: this.user,
-            edited: this.editUser
-        });
+        this.updateUserEvent.emit(this.editUser);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
@@ -377,8 +374,8 @@ var UserListComponent = /** @class */ (function () {
             this.destroyUserEvent.emit(user);
         }
     };
-    UserListComponent.prototype.update = function (users) {
-        this.updateUserEvent.emit(users);
+    UserListComponent.prototype.update = function (user) {
+        this.updateUserEvent.emit(user);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
@@ -505,12 +502,16 @@ var UserComponent = /** @class */ (function () {
             .catch(function (err) { return console.log(err); });
     };
     UserComponent.prototype.destroy = function (user) {
-        var i = this.users.indexOf(user);
-        this.users.splice(i, 1);
+        var _this = this;
+        this._userServices.destroy(user)
+            .then(function (status) { return _this.getUsers(); })
+            .catch(function (err) { return console.log(err); });
     };
-    UserComponent.prototype.update = function (users) {
-        var i = this.users.indexOf(users.original);
-        this.users[i] = users.edited;
+    UserComponent.prototype.update = function (user) {
+        var _this = this;
+        this._userServices.update(user)
+            .then(function (status) { return _this.getUsers(); })
+            .catch(function (err) { return console.log(err); });
     };
     UserComponent.ctorParameters = function () { return [
         { type: _user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"] }
@@ -557,7 +558,7 @@ var UserService = /** @class */ (function () {
         return this._http.post('/users', user)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) { return data.json(); })).toPromise();
     };
-    UserService.prototype.detroy = function (user) {
+    UserService.prototype.destroy = function (user) {
         return this._http.delete('/users/' + user._id)
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_4__["map"])(function (data) { return data.json(); })).toPromise();
     };

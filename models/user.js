@@ -6,7 +6,7 @@ let UserSchema = new Schema({
         type: String,
         require: true
     },
-    laste_name: {
+    last_name: {
         type: String,
         require: true
     },

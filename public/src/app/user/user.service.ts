@@ -24,7 +24,7 @@ export class UserService {
     }
       
 
-  detroy(user: User){
+  destroy(user: User){
     return this._http.delete('/users/' + user._id)
       .pipe(map(data => data.json())).toPromise();
   }

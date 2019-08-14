@@ -24,8 +24,8 @@ export class UserListComponent implements OnInit {
 
   }
 
-  update(users){
-    this.updateUserEvent.emit(users);
+  update(user){
+    this.updateUserEvent.emit(user);
   }
 
 }
