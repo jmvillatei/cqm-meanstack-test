@@ -52,7 +52,7 @@ module.exports = "<p>user-details works!</p>\n"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>user-edit works!</h1>\n\n<form (submit)=\"update()\">\n    <input type=\"text\" name=\"first_name\" [(ngModel)]=\"editUser.first_name\" required>\n    <input type=\"text\" name=\"last_name\" [(ngModel)]=\"editUser.last_name\" required>\n    <input type=\"text\" name=\"email\" [(ngModel)]=\"editUser.email\" aria-required=\"true\">\n\n    ,<button type=\"submit\">Update</button>\n</form>"
+module.exports = "<h1>user-edit works!</h1>\n\n<form (submit)=\"update()\">\n    <div class=\"form-group\">\n        <input class=\"form-control\" type=\"text\" name=\"first_name\" [(ngModel)]=\"editUser.first_name\" required>\n    </div>\n    <div class=\"form-group\">\n        <input class=\"form-control\" type=\"text\" name=\"last_name\" [(ngModel)]=\"editUser.last_name\" required>\n    </div>\n    <div class=\"form-group\">\n        <input class=\"form-control\" type=\"text\" name=\"email\" [(ngModel)]=\"editUser.email\" aria-required=\"true\">\n    </div>\n\n    <button class=\"btn btn-success\" type=\"submit\">Update</button>\n</form>"
 
 /***/ }),
 
@@ -85,7 +85,7 @@ module.exports = "<h1>User New Component</h1>\n\n<form (submit)=\"create()\">\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>User Main Component</h1>\n\n<pre>\n    {{ users | json }}  \n</pre>\n\n\n<app-user-new (createNewUserEvent)=\"create($event)\"></app-user-new>\n\n<app-user-list [users]=\"users\" (destroyUserEvent)=\"destroy($event)\" (updateUserEvent)=\"update($event)\"></app-user-list>"
+module.exports = "<div class=\"container\">\n\n    <h1>User Main Component</h1>\n\n    <pre>\n    {{ users | json }}  \n    </pre>\n\n\n    <app-user-new (createNewUserEvent)=\"create($event)\"></app-user-new>\n\n    <app-user-list [users]=\"users\" (destroyUserEvent)=\"destroy($event)\" (updateUserEvent)=\"update($event)\">\n    </app-user-list>\n</div>"
 
 /***/ }),
 
